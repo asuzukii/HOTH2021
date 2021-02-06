@@ -5,10 +5,46 @@
 */
 
 (function($) {
+	const socket = io('localhost:3000');
+	let meme = {
+		currVideo: -1,
+		text: ""
+	}
 
+	socket.on("getVideo", (url) => {
+		console.log("getting video");
+		const source = document.createElement("source");
+		source.src = url;
+		source.type = "video/mp4";
+		$("#videoPlayer").append(source);
+		$("#videoPlayer").removeClass("hidden");
+	});
+
+	$("article").click(e => {
+		meme.currVideo = $(e.currentTarget).attr("value");
+		$("article").removeClass("vidSelected");
+		$(e.currentTarget).addClass("vidSelected");
+	});
+
+	// For fun, maybe don't do this lol
+	// $("#userText").on("change", function() {
+	// 	socket.emit('makeMeme', meme);
+	// })
+
+	$("#submit").click(() => {
+		meme.text = $("#userText").val();
+		if ((meme.currVideo === -1) || (meme.text === "")) {
+			// TODO: Stop user from making meme without text or selecting a video
+		} else {
+			// logging to check if valid data is being taken in
+			console.log(`make a meme with vid #${meme.currVideo} and text: ${meme.text}`)
+			socket.emit('makeMeme', meme);
+        }
+	});
+
+	// stuff from template below
 	var	$window = $(window),
 		$body = $('body');
-
 	// Breakpoints.
 		breakpoints({
 			xlarge:   [ '1281px',  '1680px' ],
