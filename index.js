@@ -3,6 +3,7 @@ const logger = require("morgan");
 const bodyParser = require("body-parser");
 const express = require("express");
 const fs = require("fs");
+const morgan = require("morgan");
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
@@ -28,20 +29,24 @@ io.on("connection", (socket) => {
     // we got it to show video on the front end, but i'm just fixing it so we can use a variable url for diff videos yeet
     makeMeme(data.currVideo, data.text, fileName);
       // for now don't pass in rand fileName (cause then i can't test this lol)
-      socket.emit("getVideo", "testOutput" /*fileName*/);
+    socket.emit("getVideo", "testOutput" /*fileName*/);
   });
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(morgan("dev"));
 app.use(express.static("static"));
 
-app.get("/vid/:vidFile", function(req, res) {
+app.get("/download/:vidFile", function(req, res) {
+  res.download(`./memetemplates/output/${req.params.vidFile}.mp4`);
+}); 
 
-  console.log("requesting video");
+app.get("/vid/:vidFile", function(req, res) {
+  console.log(req.params);
   // Ensure there is a range given for the video
   const range = req.headers.range;
-
+  console.log("What is this??? " + range);
   if (!range) {
     res.status(400).send("Requires Range header");
   }

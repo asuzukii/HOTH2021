@@ -28,14 +28,14 @@
 		// fix later
 		console.log(src);
 		const link = document.createElement("a");
-        link.href = src;                
+        link.href = `download/${src}`;                
 		link.setAttribute("download", "video.mp4");
 		document.body.appendChild(link);
 		link.click();
 	}
 
 	socket.on("getVideo", (url) => {
-		console.log("getting video");
+		console.log("Changing source");
 		const source = document.createElement("source");
 		source.src = "vid/" + url;
 		source.type = "video/mp4";
