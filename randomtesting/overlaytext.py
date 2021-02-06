@@ -8,7 +8,7 @@ clip = VideoFileClip("strike.mp4")
 # LATER, IN ANOTHER SCRIPT, RECOVER THESE TRAJECTORIES
 from moviepy.video.tools.tracking import Trajectory
 # If ever you only have one object being tracked, recover it with
-traj, =  Trajectory.load_list('track.txt')
+traj, =  Trajectory.load_list('strike_track.txt')
 
 
 # Generate a text clip. You can customize the font, color, etc.
