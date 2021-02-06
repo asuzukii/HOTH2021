@@ -21,6 +21,7 @@
 		["strike", 3, ["Pins", "Ball", "Arm"]],
 		["strike", 3, ["Pins", "Ball", "Arm"]],
 		["strike", 3, ["Pins", "Ball", "Arm"]],
+		["strike", 3, ["Pins", "Ball", "Arm"]],
 		["strike", 4, ["Mordekai", "Rigby", "Intelligence Man", "Paper"]]
 	];
 
@@ -49,11 +50,30 @@
 
 	$("article").click(e => {
 		meme.currVideo = $(e.currentTarget).attr("value");
-		// yea
 		// Make inputs dynamically here based on what currVideo is
-		for (let i = 0; i < lookup[meme.currVideo][1]; i++) {
-			$(e.currentTarget).append(`<input type="text"></input>`);
-        }
+		console.log($("article")[0].children);
+		let existing_text_list = [];
+		for (let i = 0; i < 9; i++) {
+			console.log($("article")[i].children);
+			console.log(e.currentTarget);
+			if ($("article")[i].children.length !== 3 && $("article")[i] !== e.currentTarget) {
+				for (let j = $("article")[i].children.length - 1; j > 2; j--) {
+					// if ($("article")[i].children[j].text) {
+					// 	existing_text_list.push($("article")[i].children[j].text);
+					// }
+					$("article")[i].removeChild($("article")[i].children[j]);
+				}
+			}
+		}
+		if (e.currentTarget.children.length === 3) {
+			for (let i = 0; i < lookup[meme.currVideo][1]; i++) {
+				if (existing_text_list.length > i) {
+					$(e.currentTarget).append(`<input type="text">${existing_text_list[i]}</input>`);
+				} else {
+					$(e.currentTarget).append(`<input type="text"></input>`);
+				}
+			}
+		}
 		$("article").removeClass("vidSelected");
 		$(e.currentTarget).addClass("vidSelected");
 	});
