@@ -7,15 +7,28 @@ const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
+// like a list here
+
 io.on("connection", (socket) => {
   socket.on("makeMeme", (data) => {
     console.log("Making meme");
     console.log(data);
     // TODO: pass arguments to python script
-    // makeMeme(); Skipping this step, but test later that python works
-    // Transfer video file to user.
-    // TODO allow for different urls (for different videos)
-    socket.emit("getVideo", "vid");
+      // makeMeme();
+    let fileName = String(Math.floor(Math.random() * 100000000));
+    /*Chat lol */
+    // lemme actually try this out
+    // yeah, that would probably necessary if live update doesn't work out cause with live update they can see the lines i guess actually wait
+    // we'd have to automatically break the string into diff lines
+    // but they can see where the breaks are
+    // hmm, yeah this could be in front end acutally (the switch)
+    // we could do a textarea and force the lines somehow (i dunno exactly how that would work)
+    // is filename generating random names for the vid outputs
+    // yup the filename is rand for yup it doesn't work yet, sortof breaking the code to implement it now  cool
+    // we got it to show video on the front end, but i'm just fixing it so we can use a variable url for diff videos yeet
+    makeMeme(data.currVideo, data.text, fileName);
+      // for now don't pass in rand fileName (cause then i can't test this lol)
+      socket.emit("getVideo", "testOutput" /*fileName*/);
   });
 });
 
@@ -23,16 +36,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("static"));
 
-app.get("/vid", function(req, res) {
+app.get("/vid/:vidFile", function(req, res) {
+
   console.log("requesting video");
   // Ensure there is a range given for the video
   const range = req.headers.range;
+
   if (!range) {
     res.status(400).send("Requires Range header");
   }
-
   // get video stats (about 61MB)
-  const videoPath = "./randomtesting/strike.mp4";
+  const videoPath = `./memetemplates/output/${req.params.vidFile}.mp4`;
   const videoSize = fs.statSync(videoPath).size;
 
   // Parse Range
@@ -65,14 +79,15 @@ http.listen(3000, () => {
 });
 
 // TODO put arguments and stuffs (passed in from frontend)
-function makeMeme() {
+function makeMeme(vidtemplate, text, filename) {
   const spawn = require("child_process").spawn; 
-  console.log("Running python");
-  const process = spawn("python", ["./randomtesting/tracking.py"]); 
+  // input text needed here as well
+  console.log("Running python (not actually though)");
+  // const process = spawn("python", [`./memetemplates/${vidtemplate}`, text, filename]); 
   
   // Takes stdout data from script which executed 
   // with arguments and send this data to res object 
-  process.stdout.on("data", function(data) { 
-      console.log(data.toString());
-  }); 
+  // process.stdout.on("data", function(data) { 
+  //   console.log(data.toString());
+  // }); 
 }

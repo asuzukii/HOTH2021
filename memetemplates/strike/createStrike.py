@@ -33,4 +33,4 @@ txt_3 = txt_3.set_position(traj3).set_duration(4.600)
 video = CompositeVideoClip([clip, txt_1, txt_2, txt_3], size=(1280, 720))
 
 # Write the result to a file
-video.write_videofile("testOutput.mp4")
+video.write_videofile("./../output/testOutput.mp4")
