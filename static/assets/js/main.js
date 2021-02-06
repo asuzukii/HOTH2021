@@ -17,6 +17,7 @@
 		source.src = url;
 		source.type = "video/mp4";
 		$("#videoPlayer").append(source);
+		$("#videoPlayer").removeClass("hidden");
 	});
 
 	$("article").click(e => {
