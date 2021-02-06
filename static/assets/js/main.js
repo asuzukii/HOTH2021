@@ -25,6 +25,11 @@
 		$(e.currentTarget).addClass("vidSelected");
 	});
 
+	// For fun, maybe don't do this lol
+	// $("#userText").on("change", function() {
+	// 	socket.emit('makeMeme', meme);
+	// })
+
 	$("#submit").click(() => {
 		meme.text = $("#userText").val();
 		if ((meme.currVideo === -1) || (meme.text === "")) {
@@ -32,38 +37,6 @@
 		} else {
 			// logging to check if valid data is being taken in
 			console.log(`make a meme with vid #${meme.currVideo} and text: ${meme.text}`)
-			// sending to backend (?)  
-			// axios
-			// 	.post("makeMeme", {
-			// 		data: {
-			// 			memeData: meme
-			// 		},
-			// 		responseType: 'stream'
-			// 	})
-			// 	.then(response => {
-
-			// 		console.log(response);
-			// 		// const video = document.createElement("video");
-
-
-			// 		// // video.src = window.URL.createObjectURL(new Blob([response.data]));
-			// 		// // video.play();
-			// 		// const blob = new Blob([response.data]);
-			// 		// const url = window.URL.createObjectURL(blob);
-			// 		// video.src = url;
-			// 		// // video.play();
-					
-			// 		// const url = window.URL.createObjectURL(response.data);
-			// 		// const link = document.createElement('a');
-			// 		// link.href = url;
-			// 		// link.setAttribute('download', 'file.mp4');
-			// 		// document.body.appendChild(link);
-			// 		// link.click();
-			// 		// const mediaStream = new MediaStream();
-			// 		// video.srcObject = mediaStream;
-
-			// 		// $("#videoContainer").append(video);
-			// 	});
 			socket.emit('makeMeme', meme);
         }
 	});

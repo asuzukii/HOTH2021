@@ -17,7 +17,6 @@
     "http": "^0.0.1-security",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
-    "socket.io": "^3.1.1",
-    "socket.io-stream": "^0.9.1"
+    "socket.io": "^3.1.1"
   }
 }

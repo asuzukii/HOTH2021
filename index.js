@@ -3,20 +3,18 @@ const logger = require("morgan");
 const bodyParser = require("body-parser");
 const express = require("express");
 const fs = require("fs");
-const ss = require('socket.io-stream');
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
-
   socket.on("makeMeme", (data) => {
     console.log("Making meme");
     console.log(data);
     // TODO: pass arguments to python script
     // makeMeme(); Skipping this step, but test later that python works
     // Transfer video file to user.
+    // TODO allow for different urls (for different videos)
     socket.emit("getVideo", "vid");
   });
 });
@@ -35,7 +33,7 @@ app.get("/vid", function(req, res) {
 
   // get video stats (about 61MB)
   const videoPath = "./randomtesting/strike.mp4";
-  const videoSize = fs.statSync("./randomtesting/strike.mp4").size;
+  const videoSize = fs.statSync(videoPath).size;
 
   // Parse Range
   // Example: "bytes=32324-"
@@ -61,15 +59,6 @@ app.get("/vid", function(req, res) {
   // Stream the video chunk to the client
   videoStream.pipe(res);
 });
-
-// app.post('/makeMeme', function (req, res) {
-//   // fs.readFile("./randomtesting/strike.mp4", function(err, data) {
-//   //   if (err)
-//   //     console.log("bruh", error);
-//   //   res.send(data);
-//   // });
-//   fs.createReadStream("./randomtesting/strike.mp4").pipe(res);
-// })
 
 http.listen(3000, () => {
   console.log("Server started");
