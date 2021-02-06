@@ -29,8 +29,8 @@ txt_1 = txt_1.set_position(traj1).set_duration(5.367)
 txt_2 = txt_2.set_position(traj2).set_duration(5.900)
 txt_3 = txt_3.set_position(traj3).set_duration(4.600)
 
-# Overlay the text clip on the first video clip
+# Overlay all text onto original video, export in 720p
 video = CompositeVideoClip([clip, txt_1, txt_2, txt_3], size=(1280, 720))
 
-# Write the result to a file (many options available !)
+# Write the result to a file
 video.write_videofile("testOutput.mp4")
