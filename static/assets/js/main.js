@@ -58,17 +58,19 @@
 			console.log(e.currentTarget);
 			if ($("article")[i].children.length !== 3 && $("article")[i] !== e.currentTarget) {
 				for (let j = $("article")[i].children.length - 1; j > 2; j--) {
-					// if ($("article")[i].children[j].text) {
-					// 	existing_text_list.push($("article")[i].children[j].text);
-					// }
+					console.log($("article")[i].children[j].value);
+					if ($("article")[i].children[j].value.length > 0) {
+						existing_text_list.push($("article")[i].children[j].value);
+					}
 					$("article")[i].removeChild($("article")[i].children[j]);
 				}
 			}
 		}
+		console.log(existing_text_list);
 		if (e.currentTarget.children.length === 3) {
 			for (let i = 0; i < lookup[meme.currVideo][1]; i++) {
 				if (existing_text_list.length > i) {
-					$(e.currentTarget).append(`<input type="text">${existing_text_list[i]}</input>`);
+					$(e.currentTarget).append(`<input type="text", value=${existing_text_list[i]}></input>`);
 				} else {
 					$(e.currentTarget).append(`<input type="text"></input>`);
 				}
