@@ -22,7 +22,7 @@
 
 							<!-- Logo -->
 								<a href="index.html" class="logo">
-									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">HOTH 2021</span>
 								</a>
 
 							<!-- Nav -->
@@ -68,12 +68,18 @@
 							<section class="tiles">
 								<article class="style1" value="0">
 									<span class="image">
-										<img src="images/pic01.jpg" alt="" />
+                    <div class="card">
+                      <video id="videoPlayer" controls loop width="300">
+                        <source src ="testOutput.mp4" type="video/mp4"/>
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                    
 									</span>
 									<!-- <a href="generic.html"> -->
-										<h2>Magna</h2>
+										<h2>Template 1</h2>
 										<div class="content">
-											<p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+											<p>Bowling</p>
 										</div>
 									<!-- </a> -->
 								</article>
@@ -214,5 +220,11 @@
 			<script src="assets/js/util.js"></script>
 			<script src="https://cdn.socket.io/3.1.1/socket.io.min.js"></script>
 			<script src="assets/js/main.js"></script>
+      <script>
+        var figure = $(".style1").hover( hoverVideo, hideVideo );
+
+        function hoverVideo(e) { $('video', this).get(0).play(); }
+        function hideVideo(e) { $('video', this).get(0).pause(); }
+      </script>
 	</body>
 </html>
