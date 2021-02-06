@@ -63,7 +63,6 @@
 			// 		// video.srcObject = mediaStream;
 
 			// 		// $("#videoContainer").append(video);
-
 			// 	});
 			socket.emit('makeMeme', meme);
         }
