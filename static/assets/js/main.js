@@ -5,10 +5,35 @@
 */
 
 (function($) {
+	const socket = io('localhost:3000');
+	let meme = {
+		currVideo: -1,
+		text: ""
+	}
 
+	$("article").click(e => {
+		meme.currVideo = $(e.currentTarget).attr("value");
+		$("article").removeClass("vidSelected");
+		$(e.currentTarget).addClass("vidSelected");
+	});
+
+	$("#submit").click(() => {
+		meme.text = $("#userText").val();
+		if ((meme.currVideo === -1) || (meme.text === "")) {
+			// TODO: Stop user from making meme without text or selecting a video
+		} else {
+			// logging to check if valid data is being taken in
+			console.log(`make a meme with vid #${meme.currVideo} and text: ${meme.text}`)
+			// sending to backend (?)  
+			socket.emit('makeMeme', meme);
+        }
+		            
+
+	});
+
+	// stuff from template below
 	var	$window = $(window),
 		$body = $('body');
-
 	// Breakpoints.
 		breakpoints({
 			xlarge:   [ '1281px',  '1680px' ],
