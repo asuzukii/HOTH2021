@@ -26,9 +26,10 @@
 		link.click();
 	}
 
+	let vidWidth = 500;
 	socket.on("getVideo", (url) => {
 		$("#videoContainer").empty();
-		$("#videoContainer").append(`<video id="videoPlayer" controls loop autoplay width="250"></video><button id="download">Download Meme</button>`);
+		$("#videoContainer").append(`<video id="videoPlayer" controls loop autoplay width=${vidWidth}></video><button id="download">Download Meme</button>`);
 		const source = document.createElement("source");
 		source.src = "vid/" + url;
 		source.type = "video/mp4";
@@ -43,7 +44,29 @@
 	// 	meme.size[$(e.currentTarget).attr("position")] = $(e.currentTarget).attr("value");
 		
 	// });
-	//     
+
+	// let prevVids = []; // append video url each time a new one is created
+	// Save video history in session storage 
+	// saves state until tab is closed, but allows page refresh (localstorage might b better(?)
+	// $(document).ready(function() {
+	// 	let jsonObj = sessionStorage.getItem("oldVids");
+	// 	console.log(jsonObj);
+	// 	// sessionStorage.setItem("oldVids", "test");
+	// 	if (jsonObj) {
+	// 		try {
+	// 			let vids = JSON.parse();
+
+	// 			console.log(vids);
+	// 			for (let vid in vids) {
+
+	// 			}
+	// 		} catch(e) {
+	// 			console.error(e);
+	// 		}
+	// 	}
+	// 	// sessionStorage.setItem("oldVids", JSON.stringify(prevVids));
+	// }); 
+	// neat
 	$("article").click(e => {
 		meme.currVideo = $(e.currentTarget).attr("value");
 		// Make inputs dynamically here based on what currVideo is
@@ -65,21 +88,29 @@
 				}
 			}
 		}
-        if (e.currentTarget.children.length === 3) {
+    if (e.currentTarget.children.length === 3) {
 			for (let i = 0; i < lookup[meme.currVideo][1]; i++) {
 				if (meme.text.length > i) {
-					$(e.currentTarget).append(`<input class="vid-input" type="text" placeholder="Enter some text" value=${meme.text[i]} required></input>`);
+					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="Enter some text" value=${meme.text[i]} required></input>`);
 				} else {
-					$(e.currentTarget).append(`<input class="vid-input" type="text" placeholder="Enter some text"></input>`);
+					//console.log($(e.currentTarget.querySelector(".content").last()));
+					// $(e.currentTarget).last().last().insertBefore("<p>bruh</p>");
+					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="Enter some text"></input>`);
 				}
 			}
 		}
+
+		// show current button
+		$(".submit").addClass("hidden");
+		e.currentTarget.querySelector(".content").children[0].classList.remove("hidden");
+		//e.currentTarget).children()[1].removeClass("hidden"); // hardcoded ;()
+
 		console.log(meme.text);
 		$("article").removeClass("vidSelected");
 		$(e.currentTarget).addClass("vidSelected");
 	});
 
-	// For fun, maybe don't do this lol
+	//For fun, maybe don't do this lol
 	// $("#userText").on("change", function() {
 	// 	socket.emit('makeMeme', meme);
 	// })
@@ -97,9 +128,23 @@
 			meme.currVideo = lookup[meme.currVideo][0]; // get the meme template name.
 			// logging to check if valid data is being taken in
 			console.log(`make a meme with vid ${meme.currVideo} and text: ${meme.text}`);
-            socket.emit('makeMeme', meme);		 
+     		socket.emit('makeMeme', meme);		 
+		}
+
+		// TODO: Check if this works
+		if ($("#videoContainer").children.length !== 0) { // currently a video already generated
+			const currentVid = $("#videoContainer").children[0].cloneNode(true); 
+			$("#gallery").append(currentVid); // add the old video to the gallery
 		}
 	});
+
+	// video autoplay stuffs
+	if ($(window).width() >= 1000) { // hover only on desktop
+		var figure = $(".card").hover(hoverVideo, hideVideo);
+
+		function hoverVideo(e) { $('video', this).get(0).play(); }
+		function hideVideo(e) { $('video', this).get(0).pause(); }
+	}
 
 	// stuff from template below
 	var	$window = $(window),

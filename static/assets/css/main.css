@@ -1,6 +1,17 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
 
+#videoContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#gallery {
+	padding-top: 50px;
+}
+
 .card {
   display: flex;
   justify-content: center;
@@ -20,14 +31,16 @@
   border-radius: 8px;
   transition: 1s;
   padding: 20px;
+	box-shadow: 0 6px 8px 0 rgba(0,0,0,0.2);
 }
 
 .template:hover {
-  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.2);
   -moz-transform: scale(1.1);
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
+
+	cursor: pointer;
 }
 
 .vid-input {
@@ -2873,6 +2886,7 @@ input, select, textarea {
 
 	#header {
 		padding: 8em 0 0.1em 0 ;
+		background-color: #f2849e;
 	}
 
 		#header .logo {

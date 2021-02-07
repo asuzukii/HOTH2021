@@ -17,16 +17,6 @@ io.on("connection", (socket) => {
     // TODO: pass arguments to python script
       // makeMeme();
     let fileName = String(Math.floor(Math.random() * 100000000));
-    /*Chat lol */
-    // lemme actually try this out
-    // yeah, that would probably necessary if live update doesn't work out cause with live update they can see the lines i guess actually wait
-    // we'd have to automatically break the string into diff lines
-    // but they can see where the breaks are
-    // hmm, yeah this could be in front end acutally (the switch)
-    // we could do a textarea and force the lines somehow (i dunno exactly how that would work)
-    // is filename generating random names for the vid outputs
-    // yup the filename is rand for yup it doesn't work yet, sortof breaking the code to implement it now  cool
-    // we got it to show video on the front end, but i'm just fixing it so we can use a variable url for diff videos yeet
     console.log(data.text);
     makeMeme(data.currVideo, data.text, fileName);
   });
@@ -39,7 +29,7 @@ app.use(express.static("static"));
 
 app.get("/download/:vidFile", function(req, res) {
   res.download(`./memetemplates/output/${req.params.vidFile}.mp4`);
-}); 
+});
 
 app.get("/vid/:vidFile", function(req, res) {
   console.log(req.params);

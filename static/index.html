@@ -19,17 +19,14 @@
 <body class="is-preload">
 	<!-- Wrapper -->
 	<div id="wrapper">
-
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
-
 				<!-- Logo -->
 				<a href="index.html" class="logo">
           <!-- TODO: change href to our devpost submission link?  -->
 					<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">HOTH 2021</span>
 				</a>
-
 			</div>
 		</header>
 
@@ -39,7 +36,7 @@
 				<header>
 					<h1>Video Meme Generator</h1>
 					<h4>Pick a template. Type in text. And we'll do the rest.</h4>
-					<!-- Fix stuff below here later -->
+
 					<div id="videoContainer"></div>
 				</header>
 
@@ -54,74 +51,65 @@
 								</video>
 							</div>
 						</span>
-						<h2>Bowling</h2>
+						<h2>Strike</h2>
 						<div class="content centered">
-							<!-- <p>Bowling</p> -->
-              <button class="submit">Create Meme</button>
+             				<button class="submit hidden">Create Meme</button>
 						</div>
 					</article>
 					<article class="style2 template" value="1">
 						<span class="image">
-							<img src="images/pic02.jpg" alt="" />
+							<div class="card">
+								<video class="previewPlayer" controls loop width="300">
+									<source src="testOutput.mp4" type="video/mp4" />
+									Your browser does not support the video tag.
+								</video>
+							</div>
 						</span>
 						<h2>Dodge</h2>
 						<div class="content centered">
-							<!-- <p>Dodge</p> -->
-							<button class="submit">Create Meme</button>
+							<button class="submit hidden">Create Meme</button>
 						</div>
 					</article>
 					<article class="style3 template" value="2">
 						<span class="image">
-							<img src="images/pic03.jpg" alt="" />
+							<div class="card">
+								<video class="previewPlayer" controls loop width="300">
+									<source src="testOutput.mp4" type="video/mp4" />
+									Your browser does not support the video tag.
+								</video>
+							</div>
 						</span>
 						<h2>Panda</h2>
 						<div class="content centered">
-							<!-- <p>Panda</p> -->
-							<button class="submit">Create Meme</button>
+							<button class="submit hidden">Create Meme</button>
 						</div>
 					</article>
 				</section>
+
+				<section id="gallery">
+					<h2> Gallery </h2>
+				</section>
 			</div>
 		</div>
+	</div>
 
-		<!-- Footer -->
-		<!-- <footer id="footer">
-			<div class="inner"> -->
-				<!-- <section>
-								<h2>Get in touch</h2>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<input type="text" name="name" id="name" placeholder="Name" />
-										</div>
-										<div class="field half">
-											<input type="email" name="email" id="email" placeholder="Email" />
-										</div>
-										<div class="field">
-											<textarea name="message" id="message" placeholder="Message"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send" class="primary" /></li>
-									</ul>
-								</form>
-							</section>
-							<section>
-								<h2>Follow</h2>
-								<ul class="icons">
-									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
-								</ul>
-							</section> -->
-				<!-- <ul class="copyright">
+	<!-- Footer -->
+		<footer id="footer">
+			<div class="inner">
+				<section>
+					<h2>Follow</h2>
+					<ul class="icons">
+						<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+					</ul>
+				</section>
+				<ul class="copyright">
 					<li>&copy; Untitled. All rights reserved</li>
 					<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 				</ul>
 			</div>
-		</footer> -->
-
-	</div>
+		</footer>
 
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
@@ -130,12 +118,5 @@
 	<script src="assets/js/util.js"></script>
 	<script src="https://cdn.socket.io/3.1.1/socket.io.min.js"></script>
 	<script src="assets/js/main.js"></script>
-	<script>
-		var figure = $(".card").hover(hoverVideo, hideVideo);
-
-		function hoverVideo(e) { $('video', this).get(0).play(); }
-		function hideVideo(e) { $('video', this).get(0).pause(); }
-	</script>
 </body>
-
 </html>
