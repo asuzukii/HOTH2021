@@ -3243,6 +3243,8 @@ input, select, textarea {
 
 			#footer > .inner > * > :last-child {
 				margin-bottom: 0;
+				display: flex;
+				justify-content: center;
 			}
 
 			/* #footer > .inner section:nth-child(1) {

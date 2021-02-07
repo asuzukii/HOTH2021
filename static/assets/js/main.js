@@ -9,8 +9,8 @@
 	// example below
 	let lookup = [
 		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["dodge", 3, ["text1", "text2", "text3"]],
-		["panda", 4, ["1", "2", "3", "4"]],
+		["dodge", 3, ["Person1", "Pesron2", "Pesron3"]],
+		["panda", 4, ["Ship", "Ball1", "Panda", "Ball2"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
@@ -109,11 +109,11 @@
     if (e.currentTarget.children[2].children.length === 1) {
 			for (let i = 0; i < lookup[meme.currVideo][1]; i++) {
 				if (meme.text.length > i) {
-					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="Enter some text" value="${meme.text[i]}" required></input>`);
+					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="${lookup[meme.currVideo][2][i]}" value="${meme.text[i]}" required></input>`);
 				} else {
 					//console.log($(e.currentTarget.querySelector(".content").last()));
 					// $(e.currentTarget).last().last().insertBefore("<p>bruh</p>");
-					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="Enter some text"></input>`);
+					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="${lookup[meme.currVideo][2][i]}"></input>`);
 				}
 			}
 		}
