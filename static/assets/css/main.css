@@ -3021,7 +3021,7 @@ input, select, textarea {
 
 /* Menu */
 
-	#wrapper {
+	/* #wrapper {
 		-moz-transition: opacity 0.45s ease;
 		-webkit-transition: opacity 0.45s ease;
 		-ms-transition: opacity 0.45s ease;
@@ -3203,7 +3203,7 @@ input, select, textarea {
 			-ms-transform: scale(1.0) rotate(0deg);
 			transform: scale(1.0) rotate(0deg);
 			opacity: 1;
-		}
+		} */
 
 /* Main */
 
