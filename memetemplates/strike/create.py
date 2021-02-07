@@ -6,7 +6,7 @@ import os
 dir_path = os.path.dirname(os.path.realpath(__file__))
 cwd = os.getcwd()
 # this is just for mine, we can make this an env or something
-os.chdir("/Users/jasontay/Desktop/HOTH/memetemplates/strike/")
+os.chdir("/home/jason/HOTH2021/memetemplates/strike")
 
 clip = VideoFileClip("strike.mp4")
 
