@@ -41,7 +41,8 @@
 		});
 		$("#download").removeClass("hidden");
 
-    prevVids.append(url); // add url to list of created videos
+    prevVids.push(url); // add url to list of created videos
+    sessionStorage.setItem("oldVids", JSON.stringify(prevVids)); // update video list in session storage
 	});
 
 	// $("input").on("change", (e) => {
@@ -49,27 +50,30 @@
 		
 	// });
 
-	let prevVids = []; // append video url each time a new one is created
+	let prevVids = [];
 	// Save video history in session storage 
 	// saves state until tab is closed, but allows page refresh (localstorage might b better(?)
-	// $(document).ready(function() {
-	// 	let jsonObj = sessionStorage.getItem("oldVids");
-	// 	console.log(jsonObj);
-	// 	// sessionStorage.setItem("oldVids", "test");
-	// 	if (jsonObj) {
-	// 		try {
-	// 			let vids = JSON.parse();
 
-	// 			console.log(vids);
-	// 			for (let vid in vids) {
+	$(document).ready(function() { // on page load
+		let jsonObj = sessionStorage.getItem("oldVids");
+		console.log(jsonObj);
 
-	// 			}
-	// 		} catch(e) {
-	// 			console.error(e);
-	// 		}
-	// 	}
-	// 	// sessionStorage.setItem("oldVids", JSON.stringify(prevVids));
-	// }); 
+		if (jsonObj) {
+			try {
+				let vids = JSON.parse();
+
+				console.log(vids);
+        // TODO: placeholder for loading session storage into gallery
+        // might have to do lazy loading to avoid loading too many videos??
+				for (let vid in vids) {
+          // $("#gallery").append()
+				}
+			} catch(e) {
+				console.error(e);
+			}
+		}
+
+	}); 
 	// neat
 	$("article").click(e => {
 		meme.currVideo = $(e.currentTarget).attr("value");
