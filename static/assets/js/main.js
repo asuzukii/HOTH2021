@@ -9,8 +9,8 @@
 	// example below
 	let lookup = [
 		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["dodge", 3, ["text1", "text2", "text3"]],
-		["panda", 4, ["1", "2", "3", "4"]],
+		["dodge", 3, ["Person1", "Pesron2", "Pesron3"]],
+		["panda", 4, ["Ship", "Ball1", "Panda", "Ball2"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
@@ -40,6 +40,9 @@
 			downloadVid(url);
 		});
 		$("#download").removeClass("hidden");
+
+    prevVids.push(url); // add url to list of created videos
+    sessionStorage.setItem("oldVids", JSON.stringify(prevVids)); // update video list in session storage
 	});
 
 	// $("input").on("change", (e) => {
@@ -47,27 +50,30 @@
 		
 	// });
 
-	// let prevVids = []; // append video url each time a new one is created
+	let prevVids = [];
 	// Save video history in session storage 
 	// saves state until tab is closed, but allows page refresh (localstorage might b better(?)
-	// $(document).ready(function() {
-	// 	let jsonObj = sessionStorage.getItem("oldVids");
-	// 	console.log(jsonObj);
-	// 	// sessionStorage.setItem("oldVids", "test");
-	// 	if (jsonObj) {
-	// 		try {
-	// 			let vids = JSON.parse();
 
-	// 			console.log(vids);
-	// 			for (let vid in vids) {
+	$(document).ready(function() { // on page load
+		let jsonObj = sessionStorage.getItem("oldVids");
+		console.log(jsonObj);
 
-	// 			}
-	// 		} catch(e) {
-	// 			console.error(e);
-	// 		}
-	// 	}
-	// 	// sessionStorage.setItem("oldVids", JSON.stringify(prevVids));
-	// }); 
+		if (jsonObj) {
+			try {
+				let vids = JSON.parse();
+
+				console.log(vids);
+        // TODO: placeholder for loading session storage into gallery
+        // might have to do lazy loading to avoid loading too many videos??
+				for (let vid in vids) {
+          // $("#gallery").append()
+				}
+			} catch(e) {
+				console.error(e);
+			}
+		}
+
+	}); 
 	// neat
 	$("article").click(e => {
 		meme.currVideo = $(e.currentTarget).attr("value");
@@ -103,11 +109,11 @@
     if (e.currentTarget.children[2].children.length === 1) {
 			for (let i = 0; i < lookup[meme.currVideo][1]; i++) {
 				if (meme.text.length > i) {
-					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="Enter some text" value="${meme.text[i]}" required></input>`);
+					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="${lookup[meme.currVideo][2][i]}" value="${meme.text[i]}" required></input>`);
 				} else {
 					//console.log($(e.currentTarget.querySelector(".content").last()));
 					// $(e.currentTarget).last().last().insertBefore("<p>bruh</p>");
-					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="Enter some text"></input>`);
+					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="${lookup[meme.currVideo][2][i]}"></input>`);
 				}
 			}
 		}

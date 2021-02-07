@@ -2690,7 +2690,6 @@ input, select, textarea {
 					left: 0;
 					width: 100%;
 					height: 100%;
-					background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cstyle%3Eline %7B stroke-width: 0.25px%3B stroke: %23ffffff%3B %7D%3C/style%3E%3Cline x1='0' y1='0' x2='100' y2='100' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' /%3E%3C/svg%3E");
 					background-position: center;
 					background-repeat: no-repeat;
 					background-size: 100% 100%;
@@ -2885,7 +2884,7 @@ input, select, textarea {
 /* Header */
 
 	#header {
-		padding: 8em 0 0.1em 0 ;
+		padding: 4em 0 0.1em 0 ;
 		background-color: #f2849e;
 	}
 
@@ -3021,7 +3020,7 @@ input, select, textarea {
 
 /* Menu */
 
-	#wrapper {
+	/* #wrapper {
 		-moz-transition: opacity 0.45s ease;
 		-webkit-transition: opacity 0.45s ease;
 		-ms-transition: opacity 0.45s ease;
@@ -3203,12 +3202,12 @@ input, select, textarea {
 			-ms-transform: scale(1.0) rotate(0deg);
 			transform: scale(1.0) rotate(0deg);
 			opacity: 1;
-		}
+		} */
 
 /* Main */
 
 	#main {
-		padding: 0em 0 6em 0 ;
+		padding: 2em 0 6em 0 ;
 	}
 
 		@media screen and (max-width: 736px) {
@@ -3222,7 +3221,7 @@ input, select, textarea {
 /* Footer */
 
 	#footer {
-		padding: 5em 0 6em 0 ;
+		padding: 2em 0 2em 0 ;
 		background-color: #f6f6f6;
 	}
 
@@ -3239,15 +3238,22 @@ input, select, textarea {
 			-webkit-flex-direction: row;
 			-ms-flex-direction: row;
 			flex-direction: row;
+			justify-content: center;
 		}
 
 			#footer > .inner > * > :last-child {
 				margin-bottom: 0;
+				display: flex;
+				justify-content: center;
 			}
 
-			#footer > .inner section:nth-child(1) {
+			/* #footer > .inner section:nth-child(1) {
 				width: calc(66% - 2.5em);
 				margin-right: 2.5em;
+			} */
+
+			#footer > .inner section h2 {
+				text-align: center;
 			}
 
 			#footer > .inner section:nth-child(2) {
@@ -3258,10 +3264,12 @@ input, select, textarea {
 			#footer > .inner .copyright {
 				width: 100%;
 				padding: 0;
-				margin-top: 5em;
+				margin-top: 3em;
 				list-style: none;
 				font-size: 0.8em;
 				color: rgba(88, 88, 88, 0.5);
+				display: flex;
+				justify-content: center;
 			}
 
 				#footer > .inner .copyright a {
@@ -3285,13 +3293,13 @@ input, select, textarea {
 		@media screen and (max-width: 1280px) {
 
 			#footer {
-				padding: 5em 0 3em 0 ;
+				padding: 2em 0 2em 0 ;
 			}
 
-				#footer > .inner section:nth-child(1) {
+				/* #footer > .inner section:nth-child(1) {
 					width: calc(66% - 1.25em);
 					margin-right: 1.25em;
-				}
+				} */
 
 				#footer > .inner section:nth-child(2) {
 					width: calc(33% - 1.25em);
@@ -3317,14 +3325,16 @@ input, select, textarea {
 		@media screen and (max-width: 736px) {
 
 			#footer {
-				padding: 3em 0 1em 0 ;
+				padding: 2em 0 1em 0 ;
 			}
 
 				#footer > .inner {
 					-moz-flex-direction: column;
 					-webkit-flex-direction: column;
 					-ms-flex-direction: column;
-					flex-direction: column;
+					/*flex-direction: column;*/
+					display: flex;
+					justify-content: center;
 				}
 
 					#footer > .inner section:nth-child(1) {
@@ -3357,7 +3367,7 @@ input, select, textarea {
 				#footer > .inner .copyright li {
 					border-left: 0;
 					padding-left: 0;
-					margin: 0.75em 0 0 0;
+					/* margin: 0.75em 0 0 0; */
 					display: block;
 					line-height: inherit;
 				}
