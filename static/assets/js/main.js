@@ -40,6 +40,8 @@
 			downloadVid(url);
 		});
 		$("#download").removeClass("hidden");
+
+    prevVids.append(url); // add url to list of created videos
 	});
 
 	// $("input").on("change", (e) => {
@@ -47,7 +49,7 @@
 		
 	// });
 
-	// let prevVids = []; // append video url each time a new one is created
+	let prevVids = []; // append video url each time a new one is created
 	// Save video history in session storage 
 	// saves state until tab is closed, but allows page refresh (localstorage might b better(?)
 	// $(document).ready(function() {
