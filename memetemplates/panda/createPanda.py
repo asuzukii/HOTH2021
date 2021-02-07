@@ -20,7 +20,7 @@ traj4, = Trajectory.load_list('panda_track_4.txt')
 usertext1 = sys.argv[1]
 usertext2 = sys.argv[2]
 usertext3 = sys.argv[3]
-usertext34= sys.argv[4]
+usertext4 = sys.argv[4]
 
 # Generate text clips
 txt_1 = TextClip(usertext1, fontsize=80, font='Helvetica-Bold', color='cyan')

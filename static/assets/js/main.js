@@ -1,9 +1,3 @@
-/*
-	Phantom by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
-
 (function($) {
 	const socket = io('localhost:3000');
 	let meme = {
@@ -15,19 +9,16 @@
 	// example below
 	let lookup = [
 		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["strike", 4, ["Mordekai", "Rigby", "Intelligence Man", "Paper"]]
+		["dodge", 3, ["text1", "text2", "text3"]],
+		["panda", 4, ["1", "2", "3", "4"]],
+		// ["strike", 3, ["Pins", "Ball", "Arm"]],
+		// ["strike", 3, ["Pins", "Ball", "Arm"]],
+		// ["strike", 3, ["Pins", "Ball", "Arm"]],
+		// ["strike", 3, ["Pins", "Ball", "Arm"]],
+		// ["strike", 3, ["Pins", "Ball", "Arm"]],
+		// ["strike", 4, ["Mordekai", "Rigby", "Intelligence Man", "Paper"]]
 	];
-
 	function downloadVid(src) {
-		// fix later
-		console.log(src);
 		const link = document.createElement("a");
         link.href = `download/${src}`;                
 		link.setAttribute("download", "video.mp4");
@@ -36,49 +27,54 @@
 	}
 
 	socket.on("getVideo", (url) => {
-		console.log("Changing source");
+		$("#videoContainer").empty();
+		$("#videoContainer").append(`<video id="videoPlayer" controls loop autoplay width="250"></video><button id="download">Download Meme</button>`);
 		const source = document.createElement("source");
 		source.src = "vid/" + url;
 		source.type = "video/mp4";
 		$("#videoPlayer").append(source);
-		$("#videoPlayer").removeClass("hidden");
 		$("#download").on("click", function() {
 			downloadVid(url);
 		});
 		$("#download").removeClass("hidden");
 	});
 
+	// $("input").on("change", (e) => {
+	// 	meme.size[$(e.currentTarget).attr("position")] = $(e.currentTarget).attr("value");
+		
+	// });
+	//     
 	$("article").click(e => {
 		meme.currVideo = $(e.currentTarget).attr("value");
 		// Make inputs dynamically here based on what currVideo is
 		console.log($("article")[0].children);
-		let existing_text_list = [];
-		for (let i = 0; i < 9; i++) {
-			console.log($("article")[i].children);
-			console.log(e.currentTarget);
+		// for each article, check if there are existing input lines (exluding the one that was clicked)
+		for (let i = 0; i < 3; i++) {
 			if ($("article")[i].children.length !== 3 && $("article")[i] !== e.currentTarget) {
 				let j = $("article")[i].children.length - 3;
-				while (j > 0) {
-					if ($("article")[i].children[3].value) {
-						existing_text_list.push($("article")[i].children[3].value);
-					} else {
-						existing_text_list.push("");
+				if (meme.text.length !== 0) {
+					while (j > 0) {
+						if ($("article")[i].children[3].value) {
+							meme.text.push($("article")[i].children[3].value);
+						} else {
+							meme.text.push("");
+						}
+						$("article")[i].removeChild($("article")[i].children[3]);
+						j--;
 					}
-					$("article")[i].removeChild($("article")[i].children[3]);
-					j--;
 				}
 			}
 		}
-		console.log(existing_text_list);
-		if (e.currentTarget.children.length === 3) {
+        if (e.currentTarget.children.length === 3) {
 			for (let i = 0; i < lookup[meme.currVideo][1]; i++) {
-				if (existing_text_list.length > i) {
-					$(e.currentTarget).append(`<input type="text", value=${existing_text_list[i]}></input>`);
+				if (meme.text.length > i) {
+					$(e.currentTarget).append(`<input type="text" value=${meme.text[i]} required></input>`);
 				} else {
 					$(e.currentTarget).append(`<input type="text"></input>`);
 				}
 			}
 		}
+		console.log(meme.text);
 		$("article").removeClass("vidSelected");
 		$(e.currentTarget).addClass("vidSelected");
 	});
@@ -88,14 +84,19 @@
 	// 	socket.emit('makeMeme', meme);
 	// })
 
-	$("#submit").click(() => {
-        meme.text = $("#userText").val();
-		if ((meme.currVideo === -1) || meme.text.length === 0) {
-			// TODO: Stop user from making meme without text or selecting a video
+	$(".submit").click(() => {
+		//console.log($("article.vidSelected").length === 0);
+		const inputs = $("article.vidSelected > input")
+		for (let i = 0; i < inputs.length; i++) {
+			meme.text[i] = $(inputs[i]).val();
+		}
+		if (meme.currVideo === -1) {
+		 	// TODO: Stop user from making meme without text or selecting a video
+			console.log("something is not filled in right")
 		} else {
 			meme.currVideo = lookup[meme.currVideo][0]; // get the meme template name.
 			// logging to check if valid data is being taken in
-			console.log(`make a meme with vid #${meme.currVideo} and text: ${meme.text}`)
+			console.log(`make a meme with vid ${meme.currVideo} and text: ${meme.text}`);
             socket.emit('makeMeme', meme);		 
 		}
 	});

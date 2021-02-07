@@ -27,6 +27,7 @@ io.on("connection", (socket) => {
     // is filename generating random names for the vid outputs
     // yup the filename is rand for yup it doesn't work yet, sortof breaking the code to implement it now  cool
     // we got it to show video on the front end, but i'm just fixing it so we can use a variable url for diff videos yeet
+    console.log(data.text);
     makeMeme(data.currVideo, data.text, fileName);
   });
 });
@@ -85,16 +86,12 @@ function makeMeme(vidtemplate, text, filename) {
   const spawn = require("child_process").spawn; 
   // input text needed here as well
   console.log("Running python");
-  // just for now, delete this later
-  vidtemplate = "dodge";
-  text[1] = "bruh";
-  text[2] = "why";
-  console.log(text[0], text[1], text[2], vidtemplate, filename);
-  // DELETE ABOVE LATER
-  const process = spawn("python3", [`./memetemplates/${vidtemplate}/create.py`, text[0], text[1], text[2], filename]); 
+  console.log(vidtemplate, text[0], text[1], text[2], filename);
+  const child = vidtemplate === "panda" ? spawn("python3", [`./memetemplates/${vidtemplate}/create.py`, text[0], text[1], text[2], text[3], filename]) : 
+  spawn("python3", [`./memetemplates/${vidtemplate}/create.py`, text[0], text[1], text[2], filename]); 
   // Takes stdout data from script which executed 
   // with arguments and send this data to res object 
-  process.stdout.on("data", function(data) { 
+  child.stdout.on("data", function(data) { 
     console.log(data.toString());
     io.sockets.emit("getVideo", filename);
   }); 

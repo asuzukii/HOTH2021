@@ -7,7 +7,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 cwd = os.getcwd()
 # this is just for mine, we can make this an env or something
 os.chdir("/Users/jasontay/Desktop/HOTH/memetemplates/dodge/")
-
+print(cwd)
 clip = VideoFileClip("dodge.mp4")
 
 from moviepy.video.tools.tracking import Trajectory
