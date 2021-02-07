@@ -9,7 +9,7 @@
 	#footer {
 		$gutter: _size(gutter);
 
-		@include padding(5em, 0, (0, 0, 3em, 0));
+		@include padding(2em, 0, (0, 0, 1em, 0));
 		background-color: _palette(bg-alt);
 
 		> .inner {
@@ -21,10 +21,10 @@
 				margin-bottom: 0;
 			}
 
-			section:nth-child(1) {
-				width: calc(66% - #{$gutter});
-				margin-right: $gutter;
-			}
+			// section:nth-child(1) {
+			// 	// width: calc(50% - #{$gutter});
+			// 	// margin-right: $gutter;
+			// }
 
 			section:nth-child(2) {
 				width: calc(33% - #{$gutter});
