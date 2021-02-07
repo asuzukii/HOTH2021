@@ -11,7 +11,9 @@
 
 .centered {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .template {
@@ -22,6 +24,10 @@
 
 .template:hover {
   box-shadow: 0 6px 8px 0 rgba(0,0,0,0.2);
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .vid-input {
@@ -2741,7 +2747,7 @@ input, select, textarea {
 					.tiles article > a .content > :last-child {
 						margin-bottom: 0;
 					}
-
+/* 
 			.tiles article.style1 > .image:before {
 				background-color: #f2849e;
 			}
@@ -2764,8 +2770,8 @@ input, select, textarea {
 
 			.tiles article.style6 > .image:before {
 				background-color: #8499e7;
-			}
-
+			} */
+/* 
 			body:not(.is-touch) .tiles article:hover > .image {
 				-moz-transform: scale(1.1);
 				-webkit-transform: scale(1.1);
@@ -2785,7 +2791,7 @@ input, select, textarea {
 			body:not(.is-touch) .tiles article:hover .content {
 				max-height: 15em;
 				opacity: 1;
-			}
+			} */
 
 		* + .tiles {
 			margin-top: 2em;
