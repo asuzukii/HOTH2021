@@ -68,9 +68,9 @@
         if (e.currentTarget.children.length === 3) {
 			for (let i = 0; i < lookup[meme.currVideo][1]; i++) {
 				if (meme.text.length > i) {
-					$(e.currentTarget).append(`<input type="text" value=${meme.text[i]} required></input>`);
+					$(e.currentTarget).append(`<input class="vid-input" type="text" placeholder="Enter some text" value=${meme.text[i]} required></input>`);
 				} else {
-					$(e.currentTarget).append(`<input type="text"></input>`);
+					$(e.currentTarget).append(`<input class="vid-input" type="text" placeholder="Enter some text"></input>`);
 				}
 			}
 		}
