@@ -10,23 +10,23 @@ traj2, = Trajectory.load_list('panda_track_2.txt')
 traj3, = Trajectory.load_list('panda_track_3.txt')
 traj4, = Trajectory.load_list('panda_track_4.txt')
 
-# Testing text
-usertext1 = "Ball1"
-usertext2 = "Panda"
-usertext3 = "Ball2"
-usertext4 = "Ship"
+# # Testing text
+# usertext1 = "Ball1"
+# usertext2 = "Panda"
+# usertext3 = "Ball2"
+# usertext4 = "Ship"
 
-# # Actual text
-# usertext1 = sys.argv[0]
-# usertext2 = sys.argv[1]
-# usertext3 = sys.argv[2]
-# usertext34= sys.argv[3]
+# Actual text
+usertext1 = sys.argv[1]
+usertext2 = sys.argv[2]
+usertext3 = sys.argv[3]
+usertext34= sys.argv[4]
 
 # Generate text clips
-txt_1 = TextClip(usertext1, fontsize=80, color='cyan')
-txt_2 = TextClip(usertext2, fontsize=80, color='white')
-txt_3 = TextClip(usertext3, fontsize=80, color='cyan')
-txt_4 = TextClip(usertext4, fontsize=80, color='white')
+txt_1 = TextClip(usertext1, fontsize=80, font='Helvetica-Bold', color='cyan')
+txt_2 = TextClip(usertext2, fontsize=80, font='Helvetica-Bold', color='white')
+txt_3 = TextClip(usertext3, fontsize=80, font='Helvetica-Bold', color='cyan')
+txt_4 = TextClip(usertext4, fontsize=80, font='Helvetica-Bold', color='white')
 
 # Track text to motion data in txt files
 txt_1 = txt_1.set_position(traj1).set_duration(3.254)

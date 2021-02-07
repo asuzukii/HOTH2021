@@ -20,9 +20,9 @@ usertext2 = sys.argv[1]
 usertext3 = sys.argv[2]
 
 # Generate text clips
-txt_1 = TextClip(usertext1, fontsize=50, color='red')
-txt_2 = TextClip(usertext2, fontsize=50, color='black')
-txt_3 = TextClip(usertext3, fontsize=60, color='blue')
+txt_1 = TextClip(usertext1, fontsize=50, font='Helvetica-Bold', color='red')
+txt_2 = TextClip(usertext2, fontsize=50, font='Helvetica-Bold', color='black')
+txt_3 = TextClip(usertext3, fontsize=60, font='Helvetica-Bold', color='blue')
 
 # Track text to motion data in txt files
 txt_1 = txt_1.set_position(traj1).set_duration(3.129)
