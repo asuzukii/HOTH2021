@@ -72,28 +72,38 @@
 	$("article").click(e => {
 		meme.currVideo = $(e.currentTarget).attr("value");
 		// Make inputs dynamically here based on what currVideo is
-		console.log($("article")[0].children);
 		// for each article, check if there are existing input lines (exluding the one that was clicked)
 		for (let i = 0; i < 3; i++) {
-			if ($("article")[i].children.length !== 3 && $("article")[i] !== e.currentTarget) {
-				let j = $("article")[i].children.length - 3;
-				if (meme.text.length !== 0) {
+			// if the content div we're looking at has input lines already and it is not the one clicked
+			if ($(".content")[i].children.length !== 1 && $("article")[i] !== e.currentTarget) {
+				let j = $(".content")[i].children.length - 1;
+				if (meme.text.length === 0) {
 					while (j > 0) {
-						if ($("article")[i].children[3].value) {
-							meme.text.push($("article")[i].children[3].value);
+						if ($(".content")[i].children[1].value) {
+							meme.text.push($(".content")[i].children[1].value);
 						} else {
 							meme.text.push("");
 						}
-						$("article")[i].removeChild($("article")[i].children[3]);
+						$(".content")[i].removeChild($(".content")[i].children[1]);
 						j--;
+					}
+				} else {
+					let k = 0;
+					while (j > 0) {
+						if (k < meme.text.length && $(".content")[i].children[1].value !== meme.text[k]) {
+							meme.text[k] = $(".content")[i].children[1].value
+						}
+						$(".content")[i].removeChild($(".content")[i].children[1]);
+						j--;
+						k++;
 					}
 				}
 			}
 		}
-    if (e.currentTarget.children.length === 3) {
+    if (e.currentTarget.children[2].children.length === 1) {
 			for (let i = 0; i < lookup[meme.currVideo][1]; i++) {
 				if (meme.text.length > i) {
-					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="Enter some text" value=${meme.text[i]} required></input>`);
+					$(e.currentTarget.querySelector(".content")).append(`<input class="vid-input" type="text" placeholder="Enter some text" value="${meme.text[i]}" required></input>`);
 				} else {
 					//console.log($(e.currentTarget.querySelector(".content").last()));
 					// $(e.currentTarget).last().last().insertBefore("<p>bruh</p>");
