@@ -57,12 +57,15 @@
 			console.log($("article")[i].children);
 			console.log(e.currentTarget);
 			if ($("article")[i].children.length !== 3 && $("article")[i] !== e.currentTarget) {
-				for (let j = $("article")[i].children.length - 1; j > 2; j--) {
-					console.log($("article")[i].children[j].value);
-					if ($("article")[i].children[j].value.length > 0) {
-						existing_text_list.push($("article")[i].children[j].value);
+				let j = $("article")[i].children.length - 3;
+				while (j > 0) {
+					if ($("article")[i].children[3].value) {
+						existing_text_list.push($("article")[i].children[3].value);
+					} else {
+						existing_text_list.push("");
 					}
-					$("article")[i].removeChild($("article")[i].children[j]);
+					$("article")[i].removeChild($("article")[i].children[3]);
+					j--;
 				}
 			}
 		}
