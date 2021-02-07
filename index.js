@@ -28,8 +28,6 @@ io.on("connection", (socket) => {
     // yup the filename is rand for yup it doesn't work yet, sortof breaking the code to implement it now  cool
     // we got it to show video on the front end, but i'm just fixing it so we can use a variable url for diff videos yeet
     makeMeme(data.currVideo, data.text, fileName);
-      // for now don't pass in rand fileName (cause then i can't test this lol)
-    socket.emit("getVideo", "testOutput" /*fileName*/);
   });
 });
 
@@ -46,7 +44,6 @@ app.get("/vid/:vidFile", function(req, res) {
   console.log(req.params);
   // Ensure there is a range given for the video
   const range = req.headers.range;
-  console.log("What is this??? " + range);
   if (!range) {
     res.status(400).send("Requires Range header");
   }
@@ -87,12 +84,18 @@ http.listen(3000, () => {
 function makeMeme(vidtemplate, text, filename) {
   const spawn = require("child_process").spawn; 
   // input text needed here as well
-  console.log("Running python (not actually though)");
-  // const process = spawn("python", [`./memetemplates/${vidtemplate}`, text, filename]); 
-  
+  console.log("Running python");
+  // just for now, delete this later
+  vidtemplate = "dodge";
+  text[1] = "bruh";
+  text[2] = "why";
+  console.log(text[0], text[1], text[2], vidtemplate, filename);
+  // DELETE ABOVE LATER
+  const process = spawn("python3", [`./memetemplates/${vidtemplate}/create.py`, text[0], text[1], text[2], filename]); 
   // Takes stdout data from script which executed 
   // with arguments and send this data to res object 
-  // process.stdout.on("data", function(data) { 
-  //   console.log(data.toString());
-  // }); 
+  process.stdout.on("data", function(data) { 
+    console.log(data.toString());
+    io.sockets.emit("getVideo", filename);
+  }); 
 }
