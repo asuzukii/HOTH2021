@@ -1,6 +1,11 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
 
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .vidSelected {
 	border: 1px solid #000;

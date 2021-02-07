@@ -8,20 +8,77 @@
 	const socket = io('localhost:3000');
 	let meme = {
 		currVideo: -1,
-		text: ""
+		text: []
+    }
+	// look up table which in each row has
+	// [meme template, the number of inputs we'd want, [input text default_1, input text default_2, ...]]
+	// example below
+	let lookup = [
+		["strike", 3, ["Pins", "Ball", "Arm"]],
+		["strike", 3, ["Pins", "Ball", "Arm"]],
+		["strike", 3, ["Pins", "Ball", "Arm"]],
+		["strike", 3, ["Pins", "Ball", "Arm"]],
+		["strike", 3, ["Pins", "Ball", "Arm"]],
+		["strike", 3, ["Pins", "Ball", "Arm"]],
+		["strike", 3, ["Pins", "Ball", "Arm"]],
+		["strike", 3, ["Pins", "Ball", "Arm"]],
+		["strike", 4, ["Mordekai", "Rigby", "Intelligence Man", "Paper"]]
+	];
+
+	function downloadVid(src) {
+		// fix later
+		console.log(src);
+		const link = document.createElement("a");
+        link.href = `download/${src}`;                
+		link.setAttribute("download", "video.mp4");
+		document.body.appendChild(link);
+		link.click();
 	}
 
 	socket.on("getVideo", (url) => {
-		console.log("getting video");
+		console.log("Changing source");
 		const source = document.createElement("source");
-		source.src = url;
+		source.src = "vid/" + url;
 		source.type = "video/mp4";
 		$("#videoPlayer").append(source);
 		$("#videoPlayer").removeClass("hidden");
+		$("#download").on("click", function() {
+			downloadVid(url);
+		});
+		$("#download").removeClass("hidden");
 	});
 
 	$("article").click(e => {
 		meme.currVideo = $(e.currentTarget).attr("value");
+		// Make inputs dynamically here based on what currVideo is
+		console.log($("article")[0].children);
+		let existing_text_list = [];
+		for (let i = 0; i < 9; i++) {
+			console.log($("article")[i].children);
+			console.log(e.currentTarget);
+			if ($("article")[i].children.length !== 3 && $("article")[i] !== e.currentTarget) {
+				let j = $("article")[i].children.length - 3;
+				while (j > 0) {
+					if ($("article")[i].children[3].value) {
+						existing_text_list.push($("article")[i].children[3].value);
+					} else {
+						existing_text_list.push("");
+					}
+					$("article")[i].removeChild($("article")[i].children[3]);
+					j--;
+				}
+			}
+		}
+		console.log(existing_text_list);
+		if (e.currentTarget.children.length === 3) {
+			for (let i = 0; i < lookup[meme.currVideo][1]; i++) {
+				if (existing_text_list.length > i) {
+					$(e.currentTarget).append(`<input type="text", value=${existing_text_list[i]}></input>`);
+				} else {
+					$(e.currentTarget).append(`<input type="text"></input>`);
+				}
+			}
+		}
 		$("article").removeClass("vidSelected");
 		$(e.currentTarget).addClass("vidSelected");
 	});
@@ -32,14 +89,15 @@
 	// })
 
 	$("#submit").click(() => {
-		meme.text = $("#userText").val();
-		if ((meme.currVideo === -1) || (meme.text === "")) {
+        meme.text = $("#userText").val();
+		if ((meme.currVideo === -1) || meme.text.length === 0) {
 			// TODO: Stop user from making meme without text or selecting a video
 		} else {
+			meme.currVideo = lookup[meme.currVideo][0]; // get the meme template name.
 			// logging to check if valid data is being taken in
 			console.log(`make a meme with vid #${meme.currVideo} and text: ${meme.text}`)
-			socket.emit('makeMeme', meme);
-        }
+            socket.emit('makeMeme', meme);		 
+		}
 	});
 
 	// stuff from template below

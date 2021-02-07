@@ -1,6 +1,12 @@
 # Import everything needed to edit video clips
 from moviepy.editor import *
 import sys
+import os 
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+cwd = os.getcwd()
+# this is just for mine, we can make this an env or something
+os.chdir("/Users/jasontay/Desktop/HOTH/memetemplates/strike/")
 
 clip = VideoFileClip("strike.mp4")
 
@@ -15,9 +21,9 @@ traj3, = Trajectory.load_list('strike_track_3.txt')
 # usertext3 = "Arm"
 
 # Actual text
-usertext1 = sys.argv[0]
-usertext2 = sys.argv[1]
-usertext3 = sys.argv[2]
+usertext1 = sys.argv[1]
+usertext2 = sys.argv[2]
+usertext3 = sys.argv[3]
 
 # Generate text clips
 txt_1 = TextClip(usertext1, fontsize=50, color='red')
@@ -33,4 +39,5 @@ txt_3 = txt_3.set_position(traj3).set_duration(4.600)
 video = CompositeVideoClip([clip, txt_1, txt_2, txt_3], size=(1280, 720))
 
 # Write the result to a file
-video.write_videofile("./../output/testOutput.mp4")
+video.write_videofile("./../output/"+ sys.argv[4] + ".mp4")
+print("finish")
