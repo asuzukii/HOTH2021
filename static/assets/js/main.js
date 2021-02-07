@@ -28,6 +28,8 @@
 
 	let vidWidth = 500;
 	socket.on("getVideo", (url) => {
+		$(".submit").removeClass("buttonload");
+		$(".submit").html("Create Meme");
 		$("#videoContainer").empty();
 		$("#videoContainer").append(`<video id="videoPlayer" controls loop autoplay width=${vidWidth}></video><button id="download">Download Meme</button>`);
 		const source = document.createElement("source");
@@ -115,7 +117,7 @@
 	// 	socket.emit('makeMeme', meme);
 	// })
 
-	$(".submit").click(() => {
+	$(".submit").click(e => {
 		//console.log($("article.vidSelected").length === 0);
 		const inputs = $("article.vidSelected > input")
 		for (let i = 0; i < inputs.length; i++) {
@@ -130,6 +132,8 @@
 			console.log(`make a meme with vid ${meme.currVideo} and text: ${meme.text}`);
      		socket.emit('makeMeme', meme);		 
 		}
+		$(e.currentTarget).addClass("buttonload");
+		$(e.currentTarget).html(`<i class="fa fa-spinner fa-spin"></i>Making meme...`);
 
 		// TODO: Check if this works
 		if ($("#videoContainer").children.length !== 0) { // currently a video already generated
