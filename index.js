@@ -12,13 +12,21 @@ const io = require("socket.io")(http);
 
 io.on("connection", (socket) => {
   socket.on("makeMeme", (data) => {
-    console.log("Making meme");
     console.log(data);
     // TODO: pass arguments to python script
       // makeMeme();
     let fileName = String(Math.floor(Math.random() * 100000000));
     console.log(data.text);
     makeMeme(data.currVideo, data.text, fileName);
+  });
+  socket.on("getUrls", () => {
+    fs.readdir("./memetemplates/output", (err, files) => {
+      let urls = [];
+      files.forEach(file => {
+        urls.push(file.split(".")[0]);
+      });
+      socket.emit("sendUrls", urls);
+    });
   });
 });
 

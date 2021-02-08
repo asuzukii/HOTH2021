@@ -1,5 +1,17 @@
 (function($) {
 	const socket = io('http://128.199.9.81/');
+
+	$("#showGallery").click(e =>{
+		$("#showGallery").addClass("hidden");
+		socket.emit("getUrls");
+	});
+
+	socket.on("sendUrls", (urls) => {
+		for (let i = 0; i < urls.length; i++) {
+			$("#gallery").append(`<video class="gallery-vid" controls loop width="300"><source src="vid/${urls[i]}" type="video/mp4" /> Your browser does not support the video tag. </video>`);
+		}
+	})
+
 	let meme = {
 		currVideo: -1,
 		text: []
