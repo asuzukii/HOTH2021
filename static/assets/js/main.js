@@ -1,12 +1,16 @@
 (function($) {
 	const socket = io('http://128.199.9.81/');
-
+	let userId = "";
+	socket.on("connect", function() {
+		userId = socket.id;
+	})
 	$("#showGallery").click(e =>{
 		$("#showGallery").addClass("hidden");
 		socket.emit("getUrls");
 	});
 
 	socket.on("sendUrls", (urls) => {
+		$("#showGallery").addClass("hidden"); // just in case bad stuff happens
 		for (let i = 0; i < urls.length; i++) {
 			$("#gallery").append(`<video class="gallery-vid" controls loop width="300"><source src="vid/${urls[i]}" type="video/mp4" /> Your browser does not support the video tag. </video>`);
 		}
@@ -22,7 +26,7 @@
 	let lookup = [
 		["strike", 3, ["Pins", "Ball", "Arm"]],
 		["dodge", 3, ["Person 1", "Person 2", "Flyer"]],
-		["panda", 4, ["Ship", "Ball 1", "Panda", "Ball 2"]],
+		["panda", 4, ["Ball 1", "Panda", "Ball 2", "Ship"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
@@ -69,7 +73,7 @@
 
 	$(document).ready(function() { // on page load
 		let jsonObj = sessionStorage.getItem("oldVids");
-		console.log(jsonObj);
+		// console.log(jsonObj);
 
 		if (jsonObj) {
 			try {
@@ -136,7 +140,7 @@
 		e.currentTarget.querySelector(".content").children[0].classList.remove("hidden");
 		//e.currentTarget).children()[1].removeClass("hidden"); // hardcoded ;()
 
-		console.log(meme.text);
+		// console.log(meme.text);
 		$("article").removeClass("vidSelected");
 		$(e.currentTarget).addClass("vidSelected");
 	});
@@ -159,28 +163,28 @@
 			meme.currVideo = lookup[meme.currVideo][0]; // get the meme template name.
 			// logging to check if valid data is being taken in
 			console.log(`make a meme with vid ${meme.currVideo} and text: ${meme.text}`);
-     		socket.emit('makeMeme', meme);		 
+			console.log(userId);
+     		socket.emit('makeMeme', meme, userId);		 
 		}
 		$(e.currentTarget).addClass("buttonload");
 		$(e.currentTarget).html(`<i class="fa fa-spinner fa-spin"></i>Making meme...`);
 
 		if (prevVids.length > 0) { // check for old videos
-      // TODO: allow downloads for gallery videos
-		  const url = prevVids[prevVids.length-1];
-
-      const source = document.createElement("source");
-      const galleryWidth = 300;
-		  source.src = "vid/" + url;
-		  source.type = "video/mp4";
-      $("#gallery").append( 
-        `<video class="gallery-vid" controls loop width=${galleryWidth}>
-          ${source}
-        </video>
-        <button>Download Meme</button>`
-      ); 
-		  // $("#download").on("click", function() {
-		  // 	downloadVid(url);
-		  // });
+      		// TODO: allow downloads for gallery videos
+			const url = prevVids[prevVids.length-1];
+			const source = document.createElement("source");
+			const galleryWidth = 300;
+				source.src = "vid/" + url;
+				source.type = "video/mp4";
+			$("#gallery").append( 
+				`<video class="gallery-vid" controls loop width=${galleryWidth}>
+				${source}
+				</video>
+				<button>Download Meme</button>`
+			); 
+		// $("#download").on("click", function() {
+		// 	downloadVid(url);
+		// });
 		}
 	});
 

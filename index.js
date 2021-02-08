@@ -11,13 +11,13 @@ const io = require("socket.io")(http);
 // like a list here
 
 io.on("connection", (socket) => {
-  socket.on("makeMeme", (data) => {
+  socket.on("makeMeme", (data, userId) => {
     console.log(data);
     // TODO: pass arguments to python script
       // makeMeme();
     let fileName = String(Math.floor(Math.random() * 100000000));
     console.log(data.text);
-    makeMeme(data.currVideo, data.text, fileName);
+    makeMeme(data.currVideo, data.text, fileName, userId);
   });
   socket.on("getUrls", () => {
     fs.readdir("./memetemplates/output", (err, files) => {
@@ -80,7 +80,7 @@ http.listen(3000, () => {
 });
 
 // TODO put arguments and stuffs (passed in from frontend)
-function makeMeme(vidtemplate, text, filename) {
+function makeMeme(vidtemplate, text, filename, userId) {
   const spawn = require("child_process").spawn; 
   // input text needed here as well
   console.log("Running python");
@@ -91,6 +91,6 @@ function makeMeme(vidtemplate, text, filename) {
   // with arguments and send this data to res object 
   child.stdout.on("data", function(data) { 
     console.log(data.toString());
-    io.sockets.emit("getVideo", filename);
+    io.to(userId).emit("getVideo", filename);
   }); 
 }
