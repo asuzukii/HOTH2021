@@ -9,8 +9,8 @@
 	// example below
 	let lookup = [
 		["strike", 3, ["Pins", "Ball", "Arm"]],
-		["dodge", 3, ["Person1", "Pesron2", "Pesron3"]],
-		["panda", 4, ["Ship", "Ball1", "Panda", "Ball2"]],
+		["dodge", 3, ["Person 1", "Person 2", "Flyer"]],
+		["panda", 4, ["Ship", "Ball 1", "Panda", "Ball 2"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
 		// ["strike", 3, ["Pins", "Ball", "Arm"]],
@@ -31,7 +31,7 @@
 		$(".submit").removeClass("buttonload");
 		$(".submit").html("Create Meme");
 		$("#videoContainer").empty();
-		$("#videoContainer").append(`<video id="videoPlayer" controls loop autoplay width=${vidWidth}></video><button id="download">Download Meme</button>`);
+		$("#videoContainer").append(`<video id="videoPlayer" controls loop width=${vidWidth}></video><button id="download">Download Meme</button>`);
 		const source = document.createElement("source");
 		source.src = "vid/" + url;
 		source.type = "video/mp4";
