@@ -74,7 +74,6 @@
 		}
 
 	}); 
-	// neat
 	$("article").click(e => {
 		meme.currVideo = $(e.currentTarget).attr("value");
 		// Make inputs dynamically here based on what currVideo is
@@ -134,11 +133,11 @@
 	// })
 
 	$(".submit").click(e => {
-		//console.log($("article.vidSelected").length === 0);
-		const inputs = $("article.vidSelected > input")
+		const inputs = $("article.vidSelected > div.content > input");
 		for (let i = 0; i < inputs.length; i++) {
 			meme.text[i] = $(inputs[i]).val();
 		}
+		console.log(meme.currVideo, meme.text);
 		if (meme.currVideo === -1) {
 		 	// TODO: Stop user from making meme without text or selecting a video
 			console.log("something is not filled in right")
@@ -152,10 +151,10 @@
 		$(e.currentTarget).html(`<i class="fa fa-spinner fa-spin"></i>Making meme...`);
 
 		// TODO: Check if this works
-		if ($("#videoContainer").children.length !== 0) { // currently a video already generated
-			const currentVid = $("#videoContainer").children[0].cloneNode(true); 
-			$("#gallery").append(currentVid); // add the old video to the gallery
-		}
+		// if ($("#videoContainer").children.length !== 0) { // currently a video already generated
+		// 	const currentVid = $("#videoContainer").children[0].cloneNode(true); 
+		// 	$("#gallery").append(currentVid); // add the old video to the gallery
+		// }
 	});
 
 	// video autoplay stuffs
