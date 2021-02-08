@@ -55,7 +55,7 @@
 
     	prevVids.push(url); // add url to list of created videos
     	sessionStorage.setItem("oldVids", JSON.stringify(prevVids)); // update video list in session storage
-		socket.emit("getUrls");
+		$("#showGallery").click();
 	});
 
 	// $("input").on("change", (e) => {
