@@ -1,5 +1,5 @@
 (function($) {
-	const socket = io('localhost:3000');
+	const socket = io('http://128.199.9.81/');
 	let meme = {
 		currVideo: -1,
 		text: []
