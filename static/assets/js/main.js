@@ -26,7 +26,7 @@
 		link.click();
 	}
 
-	let vidWidth = 500;
+	let vidWidth = 350;
 	socket.on("getVideo", (url) => {
 		$(".submit").removeClass("buttonload");
 		$(".submit").html("Create Meme");
@@ -74,6 +74,7 @@
 		}
 
 	}); 
+
 	$("article").click(e => {
 		meme.currVideo = $(e.currentTarget).attr("value");
 		// Make inputs dynamically here based on what currVideo is
@@ -150,11 +151,24 @@
 		$(e.currentTarget).addClass("buttonload");
 		$(e.currentTarget).html(`<i class="fa fa-spinner fa-spin"></i>Making meme...`);
 
-		// TODO: Check if this works
-		// if ($("#videoContainer").children.length !== 0) { // currently a video already generated
-		// 	const currentVid = $("#videoContainer").children[0].cloneNode(true); 
-		// 	$("#gallery").append(currentVid); // add the old video to the gallery
-		// }
+		if (prevVids.length > 0) { // check for old videos
+      // TODO: allow downloads for gallery videos
+		  const url = prevVids[prevVids.length-1];
+
+      const source = document.createElement("source");
+      const galleryWidth = 300;
+		  source.src = "vid/" + url;
+		  source.type = "video/mp4";
+      $("#gallery").append( 
+        `<video class="gallery-vid" controls loop width=${galleryWidth}>
+          ${source}
+        </video>
+        <button>Download Meme</button>`
+      ); 
+		  // $("#download").on("click", function() {
+		  // 	downloadVid(url);
+		  // });
+		}
 	});
 
 	// video autoplay stuffs
