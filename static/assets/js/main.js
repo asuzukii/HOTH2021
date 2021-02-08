@@ -53,8 +53,9 @@
 		});
 		$("#download").removeClass("hidden");
 
-    prevVids.push(url); // add url to list of created videos
-    sessionStorage.setItem("oldVids", JSON.stringify(prevVids)); // update video list in session storage
+    	prevVids.push(url); // add url to list of created videos
+    	sessionStorage.setItem("oldVids", JSON.stringify(prevVids)); // update video list in session storage
+		socket.emit("getUrls");
 	});
 
 	// $("input").on("change", (e) => {
